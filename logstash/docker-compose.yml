@@ -1,0 +1,44 @@
+version: '2'
+
+services:
+  # configure logstash via the logstash.conf file in this dirctory
+  logstash:
+    image: logstash:2.3.4-1
+    command: --allow-env -f /logstash/config/logstash.conf
+    ports:
+      - "5000:5000/tcp"
+      - "5000:5000/udp"
+    environment:
+      LOGSPOUT: 'ignore'
+      ES_HOSTS: 'elasticsearch:9200'
+    volumes:
+      - ./logstash.conf:/logstash/config/logstash.conf
+    # limit amount of memory logstash may use - it can be quite greedy
+    mem_limit: 2048m
+    # restart logstash if it crashes
+    restart: unless-stopped
+
+  # optional: configure logspout to send logs of containerized apps to logstash
+  # docs: https://github.com/gliderlabs/logspout
+  logspout:
+    image: gliderlabs/logspout:v3
+    links:
+      - logstash
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock
+    command: syslog://logstash:5000
+    environment:
+      DEBUG: 'true'
+      LOGSPOUT: 'ignore'
+    mem_limit: 64m
+    restart: unless-stopped
+
+  # the elasticsearch service is for demo purposes only and should be hosted on a dedicated cluster
+  elasticsearch:
+    image: elasticsearch:5
+    command: ["-E", "network.host=0.0.0.0", "-E", "discovery.zen.minimum_master_nodes=1"]
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xms1g -Xmx1g"
