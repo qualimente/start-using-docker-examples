@@ -7,5 +7,6 @@ Examples:
 * [isolation](isolation/README.md)
 * [aws-cli](aws-cli/README.md)
 * [tcpdump](tcpdump/README.md)
+* [rando-doggos (simple Python webapp w/ cute dogs)](rando-doggos/README.md)
 * [networking course](networking-course/README.md)
 * [logstash](logstash/README.md)
