@@ -13,7 +13,8 @@ images = [
     "https://pbs.twimg.com/media/C5oSiskU0AI2lcZ.jpg",
     "https://pbs.twimg.com/media/C5eTCOVUsAAWhvc.jpg",
     "https://pbs.twimg.com/media/C5d0QtvXMAI_7uz.jpg",
-    "https://pbs.twimg.com/media/DYlqXPYVQAIAniX.jpg"
+    "https://pbs.twimg.com/media/DYlqXPYVQAIAniX.jpg",
+    "https://pbs.twimg.com/media/EeOX9zyWkAYYbIN.jpg",  # quack
 ]
 
 
